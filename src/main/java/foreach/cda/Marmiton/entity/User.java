@@ -21,22 +21,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "nom", nullable = false)
+    @Column(nullable = false, length = 100)
     private String nom;
     
-    @Column(name = "prenom", nullable = false)
+    @Column(nullable = false, length = 100)
     private String prenom;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Role role = Role.USER;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
+    @Column(length = 20)
     private String telephone;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 150)
     private String mail;
+
 }
