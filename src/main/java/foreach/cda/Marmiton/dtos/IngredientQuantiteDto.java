@@ -1,4 +1,4 @@
-package foreach.cda.Marmiton.DTO;
+package foreach.cda.Marmiton.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

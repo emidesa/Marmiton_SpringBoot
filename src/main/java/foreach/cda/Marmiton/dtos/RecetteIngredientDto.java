@@ -1,4 +1,4 @@
-package foreach.cda.Marmiton.DTO;
+package foreach.cda.Marmiton.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
