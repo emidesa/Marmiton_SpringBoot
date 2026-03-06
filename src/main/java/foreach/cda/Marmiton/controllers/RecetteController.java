@@ -3,7 +3,9 @@ package foreach.cda.Marmiton.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import foreach.cda.Marmiton.DTO.CreateRecetteDto;
-import foreach.cda.Marmiton.DTO.RecetteDto;
-import foreach.cda.Marmiton.DTO.UpdateRecetteDto;
+import foreach.cda.Marmiton.dtos.CreateRecetteDto;
+import foreach.cda.Marmiton.dtos.RecetteDto;
+import foreach.cda.Marmiton.dtos.UpdateRecetteDto;
 import foreach.cda.Marmiton.services.RecetteService;
 import jakarta.validation.Valid;
 
@@ -119,5 +121,24 @@ public class RecetteController {
     public ResponseEntity<List<RecetteDto>> getUserFavorites(@PathVariable Long userId) {
         List<RecetteDto> favorites = recetteService.getUserFavorites(userId);
         return ResponseEntity.ok(favorites);
+    }
+
+    // EXPORT
+    @GetMapping(value = "/{id}/export/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> exportRecettePdf(@PathVariable Long id) {
+        byte[] pdf = recetteService.exportRecettePdf(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"recette-" + id + ".pdf\"")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
+
+    @GetMapping(value = "/{id}/export/xlsx", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity<byte[]> exportRecetteXlsx(@PathVariable Long id) {
+        byte[] xlsx = recetteService.exportRecetteXlsx(id);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"recette-" + id + ".xlsx\"")
+                .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                .body(xlsx);
     }
 }

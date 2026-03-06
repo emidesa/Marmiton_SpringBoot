@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import foreach.cda.Marmiton.DTO.CreateUserDto;
-import foreach.cda.Marmiton.DTO.UpdateUserDto;
-import foreach.cda.Marmiton.DTO.UserDto;
+import foreach.cda.Marmiton.dtos.CreateUserDto;
+import foreach.cda.Marmiton.dtos.UpdateUserDto;
+import foreach.cda.Marmiton.dtos.UserDto;
 import foreach.cda.Marmiton.entity.User;
 
 @Component

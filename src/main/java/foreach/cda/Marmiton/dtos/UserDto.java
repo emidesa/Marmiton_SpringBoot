@@ -1,7 +1,6 @@
 package foreach.cda.Marmiton.dtos;
 
 
-import foreach.cda.Marmiton.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -7,9 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import foreach.cda.Marmiton.DTO.CreateUserDto;
-import foreach.cda.Marmiton.DTO.UpdateUserDto;
-import foreach.cda.Marmiton.DTO.UserDto;
+import foreach.cda.Marmiton.dtos.CreateUserDto;
+import foreach.cda.Marmiton.dtos.UpdateUserDto;
+import foreach.cda.Marmiton.dtos.UserDto;
 import foreach.cda.Marmiton.entity.User;
 import foreach.cda.Marmiton.mappers.UserMapper;
 import foreach.cda.Marmiton.repository.UserRepository;

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import foreach.cda.Marmiton.DTO.CreateUserDto;
-import foreach.cda.Marmiton.DTO.UpdateUserDto;
-import foreach.cda.Marmiton.DTO.UserDto;
+import foreach.cda.Marmiton.dtos.CreateUserDto;
+import foreach.cda.Marmiton.dtos.UpdateUserDto;
+import foreach.cda.Marmiton.dtos.UserDto;
 import foreach.cda.Marmiton.services.UserService;
 import jakarta.validation.Valid;
 

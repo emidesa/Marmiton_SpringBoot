@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import foreach.cda.Marmiton.security.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableMethodSecurity
@@ -30,6 +31,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                        .accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.sendError(HttpServletResponse.SC_FORBIDDEN))
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/v3/api-docs/**",
@@ -37,7 +44,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/api/auth/login"
                         ).permitAll()
-                        // création d'utilisateur ouverte (inscription)
+                        // création d'utilisateur ouverte
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         // gestion des utilisateurs et des ingrédients réservée aux ADMIN
                         .requestMatchers("/api/ingredients/**", "/api/users/**").hasRole("ADMIN")

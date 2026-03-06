@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import foreach.cda.Marmiton.DTO.CreateIngredientDto;
-import foreach.cda.Marmiton.DTO.IngredientDto;
-import foreach.cda.Marmiton.DTO.UpdateIngredientDto;
+import foreach.cda.Marmiton.dtos.CreateIngredientDto;
+import foreach.cda.Marmiton.dtos.IngredientDto;
+import foreach.cda.Marmiton.dtos.UpdateIngredientDto;
 import foreach.cda.Marmiton.entity.Ingredient;
 import foreach.cda.Marmiton.mappers.IngredientMapper;
 import foreach.cda.Marmiton.repository.IngredientRepository;

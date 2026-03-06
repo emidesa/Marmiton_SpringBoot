@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import foreach.cda.Marmiton.DTO.CreateIngredientDto;
-import foreach.cda.Marmiton.DTO.IngredientDto;
-import foreach.cda.Marmiton.DTO.UpdateIngredientDto;
+import foreach.cda.Marmiton.dtos.CreateIngredientDto;
+import foreach.cda.Marmiton.dtos.IngredientDto;
+import foreach.cda.Marmiton.dtos.UpdateIngredientDto;
 import foreach.cda.Marmiton.entity.Ingredient;
 
 @Component

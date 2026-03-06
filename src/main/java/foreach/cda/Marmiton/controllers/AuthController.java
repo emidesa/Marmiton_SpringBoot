@@ -10,11 +10,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import foreach.cda.Marmiton.entity.User;
+import foreach.cda.Marmiton.exceptions.NotFoundException;
+import foreach.cda.Marmiton.repository.UserRepository;
 import foreach.cda.Marmiton.security.JwtUtil;
 
 @RestController
@@ -24,10 +28,12 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
     }
 
     public static class LoginRequest {
@@ -59,6 +65,23 @@ public class AuthController {
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(401).body(Map.of("error", "Email ou mot de passe incorrect"));
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> me(Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(401).body(Map.of("error", "Non authentifié"));
+        }
+        String email = authentication.getName();
+        User user = userRepository.findByMail(email)
+                .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
+        return ResponseEntity.ok(Map.of(
+                "id", user.getId(),
+                "email", user.getMail(),
+                "role", user.getRole().name(),
+                "nom", user.getNom(),
+                "prenom", user.getPrenom()
+        ));
     }
 }
 

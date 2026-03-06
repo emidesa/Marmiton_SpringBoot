@@ -3,6 +3,7 @@ package foreach.cda.Marmiton.security;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import foreach.cda.Marmiton.entity.Role;
@@ -16,17 +17,24 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 
 
-    private static final String SECRET_KEY = "c2VjcmV0LW1hcm1pdG9uLXRva2VuLXN1cGVyLXNlY3JldC1rZXktMTIz";
-    private static final long EXPIRATION_MS = 1000 * 60 * 60;
+    private final String secretKeyBase64;
+    private final long expirationMs;
+
+    public JwtUtil(
+            @Value("${app.jwt.secret}") String secretKeyBase64,
+            @Value("${app.jwt.expiration-ms:3600000}") long expirationMs) {
+        this.secretKeyBase64 = secretKeyBase64;
+        this.expirationMs = expirationMs;
+    }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKeyBase64);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(String username, Role role) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + EXPIRATION_MS);
+        Date expiryDate = new Date(now.getTime() + expirationMs);
 
         return Jwts.builder()
                 .setSubject(username)

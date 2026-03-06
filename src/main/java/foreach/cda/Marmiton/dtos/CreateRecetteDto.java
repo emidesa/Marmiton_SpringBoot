@@ -31,8 +31,7 @@ public class CreateRecetteDto {
     private Integer nombreCalories;
     
     private Boolean partage = false;
-    
-    @NotNull(message = "L'ID de l'utilisateur est obligatoire")
+
     private Long userId;
     
     private List<IngredientQuantiteDto> ingredients;

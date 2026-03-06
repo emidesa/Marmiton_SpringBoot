@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import foreach.cda.Marmiton.DTO.CreateIngredientDto;
-import foreach.cda.Marmiton.DTO.IngredientDto;
-import foreach.cda.Marmiton.DTO.UpdateIngredientDto;
+import foreach.cda.Marmiton.dtos.CreateIngredientDto;
+import foreach.cda.Marmiton.dtos.IngredientDto;
+import foreach.cda.Marmiton.dtos.UpdateIngredientDto;
 import foreach.cda.Marmiton.entity.Ingredient;
 import foreach.cda.Marmiton.services.IngredientService;
 import jakarta.validation.Valid;

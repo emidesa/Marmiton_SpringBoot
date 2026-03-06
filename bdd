@@ -1,0 +1,87 @@
+
+
+USE marmiton_cda;
+
+-- =========================
+-- Table USER
+-- =========================
+CREATE TABLE user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    role ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
+    password VARCHAR(255) NOT NULL,
+    telephone VARCHAR(20),
+    mail VARCHAR(150) NOT NULL UNIQUE
+);
+
+-- =========================
+-- Table RECETTE
+-- =========================
+CREATE TABLE recette (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nom_plat VARCHAR(150) NOT NULL,
+    duree_preparation INT NOT NULL,
+    duree_cuisson INT NOT NULL,
+    nombre_calories INT,
+    partage BOOLEAN NOT NULL DEFAULT FALSE,
+
+    fk_user BIGINT NOT NULL,
+
+    CONSTRAINT fk_recette_user
+        FOREIGN KEY (fk_user)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+-- =========================
+-- Table INGREDIENT
+-- =========================
+CREATE TABLE ingredient (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(100) NOT NULL,
+    type ENUM('LEGUME', 'FRUIT', 'VIANDE', 'POISSON', 'EPICE', 'AUTRE') NOT NULL,
+    nombre_calories INT
+);
+
+-- =========================
+-- Table RECETTE_INGREDIENT
+-- =========================
+CREATE TABLE recette_ingredient (
+    recette_id BIGINT NOT NULL,
+    ingredient_id BIGINT NOT NULL,
+    quantite VARCHAR(50) NOT NULL,
+
+    PRIMARY KEY (recette_id, ingredient_id),
+
+    CONSTRAINT fk_ri_recette
+        FOREIGN KEY (recette_id)
+        REFERENCES recette(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_ri_ingredient
+        FOREIGN KEY (ingredient_id)
+        REFERENCES ingredient(id)
+        ON DELETE CASCADE
+);
+
+-- =========================
+-- Table RECETTE_FAVORITE
+-- =========================
+CREATE TABLE recette_favorite (
+    user_id BIGINT NOT NULL,
+    recette_id BIGINT NOT NULL,
+
+    PRIMARY KEY (user_id, recette_id),
+
+    CONSTRAINT fk_fav_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_fav_recette
+        FOREIGN KEY (recette_id)
+        REFERENCES recette(id)
+        ON DELETE CASCADE
+);
+

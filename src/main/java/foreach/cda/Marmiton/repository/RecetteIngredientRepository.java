@@ -10,6 +10,6 @@ import foreach.cda.Marmiton.entity.RecetteIngredientId;
 
 @Repository
 public interface RecetteIngredientRepository extends JpaRepository<RecetteIngredient, RecetteIngredientId> {
-    List<RecetteIngredient> findByRecetteId(Long recetteId);
-    void deleteByRecetteId(Long recetteId);
+    List<RecetteIngredient> findByIdRecetteId(Long recetteId);
+    void deleteByIdRecetteId(Long recetteId);
 }
